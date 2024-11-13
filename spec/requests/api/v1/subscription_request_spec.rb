@@ -147,7 +147,15 @@ RSpec.describe 'Subscription Endpoints' do
 
     describe 'SAD paths' do
       it 'returns an error if the subscription does not exist in the database' do
-        
+        get "/api/v1/subscriptions/0"
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(404)
+
+        error = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error[:status]).to eq(404)
+        expect(error[:message]).to eq("Couldn't find Subscription with 'id'=0")
       end
     end
   end
