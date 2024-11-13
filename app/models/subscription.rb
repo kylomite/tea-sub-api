@@ -4,7 +4,6 @@ class Subscription < ApplicationRecord
 
   validates :customer, presence: true
   validates :tea, presence: true
-  validates :active, presence: true
   validates :frequency, presence: true, numericality: { message: "Frequency must be a number." }
 
   validates_associated :customer, :tea
