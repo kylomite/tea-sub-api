@@ -13,7 +13,7 @@ RSpec.describe Subscription, type: :model do
     it {should validate_presence_of(:frequency)}
 
     it 'validates numericality of frequency' do
-      customer1 = Customer.create!(
+      customer1 = Customer.new(
         first_name: "Monkey",
         last_name: "Luffy",
         email: "mluffy@aol.com",
@@ -23,7 +23,7 @@ RSpec.describe Subscription, type: :model do
         zip: 17171
       )
   
-      tea1 = Tea.create!(
+      tea1 = Tea.new(
         title: "Germa 66's Green Tea",
         description: "Germa 66, the technologically advanced and militaristic organization from One Piece, is known for its precision and superior craftsmanship, and their green tea is no exception. This carefully crafted blend combines the finest handpicked leaves from the hidden tea gardens of the North Blue, known for their rich, vibrant flavor and smooth texture. The tea leaves undergo a meticulous process of steam preservation, locking in the natural freshness and antioxidants that define Germa 66’s commitment to excellence.",
         temp: 176.5,
@@ -32,14 +32,15 @@ RSpec.describe Subscription, type: :model do
         image: "https://d2jx2rerrg6sh3.cloudfront.net/images/news/ImageForNews_755721_16914865403343161.jpg"
       )
   
-      sub1 = Subscription.create!(
+      sub1 = Subscription.new(
         customer: customer1,
         tea: tea1,
         active: true,
-        frequency: 6
+        frequency: "swag"
       )
 
-      should validate_numericality_of(:frequency).with_message("Frequency must be a number.")
+      expect(sub1).not_to be_valid
+      expect(sub1.errors[:frequency]).to include("Frequency must be a number.")
     end
   end
 
