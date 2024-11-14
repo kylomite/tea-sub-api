@@ -50,7 +50,7 @@ RSpec.describe Customer, type: :model do
         state: "North Blue",
         zip: 38383
       )
-      binding.pry
+
       expect(customer2).not_to be_valid
       expect(customer2.errors[:email]).to include("Email is in use, try another.")
     end
